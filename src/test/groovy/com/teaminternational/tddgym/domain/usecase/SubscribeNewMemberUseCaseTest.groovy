@@ -3,11 +3,13 @@ package com.teaminternational.tddgym.domain.usecase
 import com.teaminternational.tddgym.domain.model.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 import java.time.LocalDate
 import java.time.Month
 
+@ContextConfiguration
 @SpringBootTest
 class SubscribeNewMemberUseCaseTest extends Specification {
     @Autowired
