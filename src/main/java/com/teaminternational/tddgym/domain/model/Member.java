@@ -1,0 +1,28 @@
+package com.teaminternational.tddgym.domain.model;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+public record Member(
+        UUID id,
+        String firstName,
+        String lastName,
+        LocalDate dob,
+        Sex sex,
+        OffsetDateTime createdAt,
+        OffsetDateTime lastUpdatedAt
+) {
+
+    public MemberDTO toDTO() {
+        return new MemberDTO(
+                id(),
+                firstName(),
+                lastName(),
+                dob(),
+                sex(),
+                createdAt(),
+                lastUpdatedAt()
+        );
+    }
+}
