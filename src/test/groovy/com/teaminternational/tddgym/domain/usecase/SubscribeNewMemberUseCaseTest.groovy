@@ -1,6 +1,8 @@
 package com.teaminternational.tddgym.domain.usecase
 
 import com.teaminternational.tddgym.domain.model.*
+import com.teaminternational.tddgym.infrastructure.persistence.MemberJpaEntity
+import com.teaminternational.tddgym.infrastructure.persistence.MemberSpringDataRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -13,12 +15,15 @@ import java.time.Month
 @SpringBootTest
 class SubscribeNewMemberUseCaseTest extends Specification {
     @Autowired
+    MemberSpringDataRepository memberSpringDataRepository
+    @Autowired
     SubscribeNewMemberUseCase sut
 
     def """
         GIVEN new member details are provided
         WHEN SubscribeNewMemberUseCase executed
         THEN new member details are returned
+        AND new member details are saved in the repository
         """() {
         given:
         def command = new SubscribeNewMemberCommand(
@@ -33,6 +38,8 @@ class SubscribeNewMemberUseCaseTest extends Specification {
                         )
                 )
         )
+        and:
+        memberSpringDataRepository.findAll().isEmpty()
 
         when:
         MemberDTO result = sut.execute(command)
@@ -51,5 +58,18 @@ class SubscribeNewMemberUseCaseTest extends Specification {
         juicyDetails.trainingGoals().size() == 2
         juicyDetails.trainingGoals().contains(TrainingGoal.MUSCLE_MASS)
         juicyDetails.trainingGoals().contains(TrainingGoal.STRENGTH)
+
+        and:
+        memberSpringDataRepository.findAll().size() == 1
+        def saved = memberSpringDataRepository.findAll().get(0)
+        saved.id == result.id()
+        saved.firstName == result.firstName()
+        saved.createdAt == result.createdAt()
+        saved.lastUpdatedAt == result.lastUpdatedAt()
+        saved.firstName == result.firstName()
+        saved.lastName == result.lastName()
+        saved.dob == result.dob()
+        saved.bodyType == result.juicyDetails().get().bodyType()
+        saved.trainingGoals == result.juicyDetails().get().trainingGoals()
     }
 }
