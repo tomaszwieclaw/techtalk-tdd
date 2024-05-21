@@ -36,7 +36,7 @@ public class MemberJpaEntity {
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<TrainingGoal> trainingGoals;
 
     private OffsetDateTime createdAt;

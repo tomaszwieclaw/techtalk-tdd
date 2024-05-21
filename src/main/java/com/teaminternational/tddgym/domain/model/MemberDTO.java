@@ -2,7 +2,6 @@ package com.teaminternational.tddgym.domain.model;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 public record MemberDTO(
@@ -11,7 +10,7 @@ public record MemberDTO(
         String lastName,
         LocalDate dob,
         Sex sex,
-        Optional<JuicyDetails> juicyDetails,
+        JuicyDetails juicyDetails,
         OffsetDateTime createdAt,
         OffsetDateTime lastUpdatedAt
 ) {

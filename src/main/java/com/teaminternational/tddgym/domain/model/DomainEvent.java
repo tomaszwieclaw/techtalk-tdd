@@ -9,6 +9,7 @@ import java.time.OffsetDateTime;
 @Data
 public class DomainEvent {
     private final Type type;
+    private final String content;
     private final OffsetDateTime createdAt;
 
     public static enum Type {
