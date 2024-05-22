@@ -35,10 +35,10 @@ class SubscribeNewMemberUseCaseTest extends Specification {
     SubscribeNewMemberUseCase sut
 
     def """
-        GIVEN new member details are provided
+        GIVEN a valid SubscribeNewMemberCommand is provided
         WHEN SubscribeNewMemberUseCase executed
-        THEN new member details are returned
-        AND new member details are saved in the repository
+        THEN newly created MemberDTO is returned
+        AND Member is saved in the repository
         AND NEW_MEMBER_SUBSCRIBED event was sent
         """() {
         given:
